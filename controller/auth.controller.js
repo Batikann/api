@@ -15,10 +15,10 @@ const cryptr = new Cryptr(process.env.CRYPTR_KEY)
 
 //Register User verified
 const registerUser = asyncHandler(async (req, res) => {
-  const { firstName, lastName, email, password } = req.body
+  const { fullName, email, password } = req.body
 
   /*Validation */
-  if (!firstName || !lastName || !email || !password) {
+  if (!fullName || !email || !password) {
     res.status(400)
     throw new Error('Please fill in all the required fields.')
   }
@@ -38,8 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
   //Create new user
 
   const user = await User.create({
-    firstName,
-    lastName,
+    fullName,
     email,
     password,
   })
@@ -297,23 +296,11 @@ const loginUser = asyncHandler(async (req, res) => {
       secure: true,
     })
 
-    const {
-      _id,
-      firstName,
-      lastName,
-      email,
-      phone,
-      address,
-      role,
-      isVerified,
-    } = user
+    const { _id, fullName, email, role, isVerified } = user
     res.status(201).json({
       _id,
-      firstName,
-      lastName,
+      fullName,
       email,
-      phone,
-      address,
       role,
       isVerified,
       token,

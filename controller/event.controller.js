@@ -24,13 +24,12 @@ module.exports = {
 }
 
 const createEvent = asyncHandler(async (req, res) => {
-  const { image, header, content, date } = req.body
+  const { image, header, content } = req.body
   const newEvent = new Event({
-    userID: req.user._id,
+    userID: '65d9d57ec7f174deafb91650',
     image,
     header,
     content,
-    date,
   })
   await newEvent.save()
   res.status(201).json({ message: 'Event added successfully', event: newEvent })
